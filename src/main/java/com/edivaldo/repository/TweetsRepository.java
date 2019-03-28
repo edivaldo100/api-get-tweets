@@ -1,11 +1,11 @@
 package com.edivaldo.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import com.edivaldo.model.TweetsEntity;
-
-@Repository
-public interface TweetsRepository extends JpaRepository<TweetsEntity, Long> {
-
+import org.springframework.data.repository.CrudRepository;
+public interface TweetsRepository extends CrudRepository<TweetsEntity, Long> {
+	Optional<TweetsEntity> findById(Long id);
 }
