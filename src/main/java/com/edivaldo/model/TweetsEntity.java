@@ -35,8 +35,8 @@ public class TweetsEntity implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL)
 	private HashTagEntity hashTag;
 
-	@Temporal(TemporalType.DATE)
-    private Date dataCriacao;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCriacao;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private UserEntity user;

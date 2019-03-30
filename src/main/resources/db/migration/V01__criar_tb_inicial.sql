@@ -1,3 +1,15 @@
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_twitter` bigint(20) DEFAULT NULL,
+  `name` tinyblob,
+  `idioma` varchar(255) DEFAULT NULL,
+  `pais` varchar(255) DEFAULT NULL,
+  `seguidores` bigint(20) DEFAULT NULL,
+  `time_zone` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=668 DEFAULT CHARSET=latin1;
+
+
 CREATE TABLE hastag (
   hashtag_id bigint(20) NOT NULL AUTO_INCREMENT,
   texto varchar(255) DEFAULT NULL,

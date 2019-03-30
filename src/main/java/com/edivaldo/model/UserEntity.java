@@ -27,8 +27,8 @@ public class UserEntity implements Serializable {
 
 	private byte[] name;
 	private Long seguidores;
-	private String idioma;
-	private String pais;
-	private String timeZone;
+	private byte[] idioma;
+	private byte[] pais;
+	private byte[] timeZone;
 
 }
