@@ -27,4 +27,19 @@ INSERT INTO hastag (texto) values ('#swagger');
 INSERT INTO hastag (texto) values ('#raml');
 INSERT INTO hastag (texto) values ('#openapis');-->
 
+CREATE TABLE twitter.idioma (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  codigo_idioma varchar(10) DEFAULT NULL,
+  idioma varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE twitter.idioma (
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	codigo_idioma varchar(10) NULL,
+	idioma varchar(255) NULL
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=latin1
+COLLATE=latin1_swedish_ci;

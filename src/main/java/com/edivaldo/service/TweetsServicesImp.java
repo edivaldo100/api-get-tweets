@@ -1,14 +1,12 @@
 package com.edivaldo.service;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
-import javax.transaction.Transactional;
-
-import org.assertj.core.util.Lists;
+import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.social.twitter.api.SearchResults;
@@ -17,15 +15,19 @@ import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.edivaldo.model.HashTagEntity;
+import com.edivaldo.model.IdiomaEntity;
 import com.edivaldo.model.TweetsEntity;
 import com.edivaldo.model.UserEntity;
 import com.edivaldo.repository.HashTagRepository;
+import com.edivaldo.repository.IdiomaRepository;
 import com.edivaldo.repository.TweetsRepository;
 import com.edivaldo.repository.UserRepository;
 
-@Transactional
+@Transactional //(propagation=Propagation.REQUIRES_NEW, noRollbackFor=TweetsServicesImp.class)
 @Repository
 public class TweetsServicesImp {
 
@@ -36,8 +38,13 @@ public class TweetsServicesImp {
 	private UserRepository userRepository;
 
 	@Autowired
+	private IdiomaRepository idiomaRepository;
+
+	@Autowired
 	private HashTagRepository hashTagRepository;
 
+	
+	private Session session;
 	public void getTweets() {
 		System.out.println("-----------------------------------GET # ");
 		// List<TweetsEntity> findAll = tweetsRepository.findAll();
@@ -116,7 +123,8 @@ public class TweetsServicesImp {
 		System.out.println("======================================================================    FIM");
 
 	}
-
+	
+	
 	void printTweet(List<Tweet> tweets, HashTagEntity hashTag) {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		int cont = 1;
@@ -126,7 +134,7 @@ public class TweetsServicesImp {
 			String nameTratado = user.getName();
 			int followersCount = user.getFollowersCount();
 
-			System.out.println(cont + "  @" + user.getName() + "tweet: " + tweet.getText() + " lang: "
+			System.out.println(cont + "  @" + user.getName() + " "
 					+ tweet.getUser().getLanguage() + " lang cod: " + tweet.getLanguageCode());
 
 			System.out.println("tweet: criadoem : " + tweet.getCreatedAt() + " : ");
@@ -137,14 +145,23 @@ public class TweetsServicesImp {
 			TweetsEntity tweetsEntity = new TweetsEntity();
 			if (cont < 101) {
 				try {
-					
+
 					UserEntity userByIdTwitter = getUserByIdTwitter(user.getId());
 					if (userByIdTwitter != null) {
 						tweetsEntity.setUser(userByIdTwitter);
 					} else {
 						UserEntity userEntity = new UserEntity();
 						userEntity.setIdTwitter(user.getId());
-						userEntity.setIdioma(stringToByte(tweet.getUser().getLanguage()));
+						
+						String codigoLanguage = tweet.getUser().getLanguage();
+						userEntity.setCodigoIdioma(stringToByte(codigoLanguage));
+						IdiomaEntity findByCodigoIdioma = findByCodigoIdioma(codigoLanguage);
+						if(findByCodigoIdioma != null) {
+							userEntity.setIdioma(stringToByte(findByCodigoIdioma.getIdioma()));
+						}else {
+							userEntity.setIdioma(stringToByte("IDIOMA NAO IDENTIFICADO"));
+						}
+						
 						userEntity.setPais(stringToByte(tweet.getUser().getLocation()));
 						userEntity.setTimeZone(stringToByte(tweet.getUser().getTimeZone()));
 						userEntity.setName(stringToByte(user.getName()));
@@ -156,7 +173,7 @@ public class TweetsServicesImp {
 					}
 					tweetsEntity.setDataCriacao(createdAt);
 
-					try {
+					/*try {
 						tweetsEntity.setHashTagText(stringToByte(limitandoTexto(tweet.getText())));
 					} catch (DataIntegrityViolationException ex) {
 						String text = tweet.getText();
@@ -168,11 +185,11 @@ public class TweetsServicesImp {
 					} catch (Exception e) {
 						tweetsEntity.setHashTagText(
 								stringToByte("Desculpe, Mas não conseguimos, tratar alguns dos caracteres do tweet."));
-					}
+					}*/
 					tweetsEntity.setHashTag(hashTag);
 
 					tweetsRepository.save(tweetsEntity);
-				}catch (DataIntegrityViolationException ex) {
+				} catch (DataIntegrityViolationException ex) {
 					String text = tweet.getText();
 					if (text.length() > 10)
 						text = text.substring(0, 9);
@@ -180,8 +197,11 @@ public class TweetsServicesImp {
 						text = "tweet nao e seguro!";
 					tweetsEntity.setHashTagText(stringToByte(limitandoTexto(text)));
 					tweetsRepository.save(tweetsEntity);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
+				}catch (ConstraintViolationException e) {
+					System.out.println("ERRRO");
+					e.printStackTrace();
+				}catch (Exception e) {
+					System.out.println("ERRRO");
 					e.printStackTrace();
 				}
 			}
@@ -233,4 +253,15 @@ public class TweetsServicesImp {
 		}
 
 	}
+	public Optional<UserEntity> getUserById(Long id) {
+		return userRepository.findById(id);
+	}
+	public IdiomaEntity findByCodigoIdioma(String cod) {
+		return idiomaRepository.findByCodigoIdioma(cod);
+	}
+	public Optional<TweetsEntity> findById(Long cod) {
+		return tweetsRepository.findById(cod);
+	}
+	
+	
 }
