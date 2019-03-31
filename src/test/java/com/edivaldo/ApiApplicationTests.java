@@ -42,7 +42,7 @@ public class ApiApplicationTests {
 		Optional<UserEntity> userById = tweetsServicesImp.getUserById(2456L);
 		UserEntity userEntity = userById.get();
 		Long id = userEntity.getId();
-		byte[] idioma2 = userEntity.getIdioma();
+		String idioma2 = userEntity.getIdioma();
 		String idioma = new String(idioma2);
 		System.out.println(id+" "+userEntity.getName()+" "+idioma);
 		System.out.println(" ");System.out.println(" ");System.out.println(" ");

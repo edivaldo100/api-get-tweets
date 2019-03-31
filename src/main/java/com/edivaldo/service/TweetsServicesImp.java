@@ -157,9 +157,12 @@ public class TweetsServicesImp {
 						userEntity.setCodigoIdioma(stringToByte(codigoLanguage));
 						IdiomaEntity findByCodigoIdioma = findByCodigoIdioma(codigoLanguage);
 						if(findByCodigoIdioma != null) {
-							userEntity.setIdioma(stringToByte(findByCodigoIdioma.getIdioma()));
+							//userEntity.setIdioma(stringToByte(findByCodigoIdioma.getIdioma()));
+							String idiomaNew = findByCodigoIdioma.getIdioma();
+							userEntity.setIdioma(idiomaNew);
+							
 						}else {
-							userEntity.setIdioma(stringToByte("IDIOMA NAO IDENTIFICADO"));
+							userEntity.setIdioma("IDIOMA NAO IDENTIFICADO");
 						}
 						
 						userEntity.setPais(stringToByte(tweet.getUser().getLocation()));

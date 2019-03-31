@@ -7,7 +7,33 @@ CREATE TABLE `user` (
   `seguidores` bigint(20) DEFAULT NULL,
   `time_zone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=668 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=668 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `codigo_idioma` tinyblob,
+  `id_twitter` bigint(50) DEFAULT NULL,
+  `idioma` tinyblob,
+  `name` tinyblob,
+  `pais` tinyblob,
+  `seguidores` bigint(50) DEFAULT NULL,
+  `time_zone` tinyblob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1067 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tweets` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `data_criacao` datetime DEFAULT NULL,
+  `hash_tag_text` tinyblob,
+  `hash_tag_hashtag_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKgsj865ex34wqxvrwdfxbr25k5` (`hash_tag_hashtag_id`),
+  KEY `FKsymxo1awyw5wc978n4fngkkrs` (`user_id`),
+  CONSTRAINT `FKgsj865ex34wqxvrwdfxbr25k5` FOREIGN KEY (`hash_tag_hashtag_id`) REFERENCES `hastag` (`hashtag_id`),
+  CONSTRAINT `FKsymxo1awyw5wc978n4fngkkrs` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1433 DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE hastag (
