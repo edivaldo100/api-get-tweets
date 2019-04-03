@@ -1,9 +1,4 @@
-CREATE TABLE twitter.idioma (
-  id bigint(10) NOT NULL AUTO_INCREMENT,
-  codigo_idioma varchar(255) DEFAULT NULL,
-  idioma varchar(255) DEFAULT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 INSERT INTO twitter.idioma (codigo_idioma, idioma) VALUES('en','Inglês');
 INSERT INTO twitter.idioma (codigo_idioma, idioma) VALUES('ar','Árabe');
 INSERT INTO twitter.idioma (codigo_idioma, idioma) VALUES('pt-br','Português do Brasil');
