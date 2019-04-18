@@ -1,3 +1,10 @@
+SET default_storage_engine=InnoDB;
+USE twitter;
+
+SET SQL_SAFE_UPDATES=0;
+
+DELETE FROM hastag;
+
 INSERT INTO twitter.hastag (texto) values ('#openbanking');
 INSERT INTO twitter.hastag (texto) values ('#apifirst');
 INSERT INTO twitter.hastag (texto) values ('#devops');

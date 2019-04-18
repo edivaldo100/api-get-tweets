@@ -1,3 +1,8 @@
+USE twitter;
+
+SET SQL_SAFE_UPDATES=0;
+
+DELETE FROM idioma;
 
 INSERT INTO twitter.idioma (codigo_idioma, idioma) VALUES('en','Inglês');
 INSERT INTO twitter.idioma (codigo_idioma, idioma) VALUES('ar','Árabe');

@@ -1,3 +1,9 @@
+SET default_storage_engine=InnoDB;
+
+USE twitter;
+
+DROP TABLE IF EXISTS twitter;
+
 CREATE TABLE twitter.hastag (
   `hashtag_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `texto` varchar(255) DEFAULT NULL,
