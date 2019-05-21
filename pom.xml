@@ -6,7 +6,7 @@
 
 	<groupId>com.edivaldo.api-get-tweets</groupId>
 	<artifactId>api-get-tweets</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>api-get-tweets</name>

@@ -20,7 +20,7 @@ import lombok.Data;
 
 @Entity
 @Table(name = "tweets")
-@Data
+//@Data
 public class TweetsEntity implements Serializable {
 	
 	private static final long serialVersionUID = -1995008769486167671L;
@@ -40,5 +40,45 @@ public class TweetsEntity implements Serializable {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private UserEntity user;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public byte[] getHashTagText() {
+		return hashTagText;
+	}
+
+	public void setHashTagText(byte[] hashTagText) {
+		this.hashTagText = hashTagText;
+	}
+
+	public HashTagEntity getHashTag() {
+		return hashTag;
+	}
+
+	public void setHashTag(HashTagEntity hashTag) {
+		this.hashTag = hashTag;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
 	
 }

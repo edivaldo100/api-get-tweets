@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Entity
 @Table(name = "idioma")
-@Data
+//@Data
 public class IdiomaEntity implements Serializable {
 	
 	private static final long serialVersionUID = -1995008769486167671L;
@@ -27,5 +27,23 @@ public class IdiomaEntity implements Serializable {
 		
 	private String codigoIdioma;
 	private String idioma;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getCodigoIdioma() {
+		return codigoIdioma;
+	}
+	public void setCodigoIdioma(String codigoIdioma) {
+		this.codigoIdioma = codigoIdioma;
+	}
+	public String getIdioma() {
+		return idioma;
+	}
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
 
 }

@@ -16,7 +16,7 @@ import lombok.Data;
 
 @Entity
 @Table(name = "hastag")
-@Data
+//@Data
 public class HashTagEntity implements Serializable {
 	
 	private static final long serialVersionUID = -1995008769486167671L;
@@ -28,5 +28,21 @@ public class HashTagEntity implements Serializable {
 		
 	@Column(name = "TEXTO", length = 255, nullable = true)
 	private String texto;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
 
 }
